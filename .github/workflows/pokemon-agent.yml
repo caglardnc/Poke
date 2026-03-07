@@ -1,0 +1,36 @@
+name: Otonom Pokemon Ajanı (Antigravity)
+
+on:
+  schedule:
+    - cron: '0 */8 * * *' # Her 8 saatte bir çalışır
+  workflow_dispatch: # Telefondan manuel tetiklemek istersen diye eklendi
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu Klonla
+        uses: actions/checkout@v4
+
+      - name: Gerekli Ortamı Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Antigravity Motorunu Çalıştır
+        run: |
+          # Ajan tüm pokemon verilerini tarayıp düzeltmeleri uygulayacak
+          python scripts/antigravity_agent.py
+
+      - name: Otomatik Testleri Koş
+        run: |
+          # Kodun bozulup bozulmadığını kontrol et
+          python -m unittest discover tests/
+
+      - name: Başarılıysa Kaydet, Hatalıysa Çöpe At
+        run: |
+          git config --global user.name "AntigravityBot"
+          git config --global user.email "bot@caglardinc.com"
+          git add .
+          git commit -m "Otonom: Tüm pokemonlar için sistem optimize edildi." || echo "Geliştirme yapılmadı veya testten geçemedi, işlem iptal."
+          git push
