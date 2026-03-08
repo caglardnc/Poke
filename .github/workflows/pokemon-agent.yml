@@ -1,35 +1,24 @@
 name: Otonom Pokemon Ajani
-
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 */8 * * *'
-  workflow_dispatch:
-
 jobs:
   evolve:
     runs-on: ubuntu-latest
     steps:
-      - name: Repoyu Klonla
-        uses: actions/checkout@v4
-
-      - name: Ortami Kur
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
-      - name: Ajan Calisiyor
+      - name: Calistir
         run: |
           python scripts/antigravity_agent.py
-
-      - name: Testleri Kos
-        run: |
           python -m unittest discover tests/
-
-      - name: Kaydet ve Gonder
+      - name: Commit
         run: |
-          git config --global user.name "AntigravityBot"
+          git config --global user.name "Bot"
           git config --global user.email "bot@caglardinc.com"
           git add .
-          git commit -m "Otonom: Sistem optimize edildi." || echo "Degisiklik yok."
+          git commit -m "Otonom guncelleme" || exit 0
           git push
- 
