@@ -9,12 +9,12 @@ jobs:
   evolve:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Yazma yetkisini buradan da garantiye alıyoruz
+      contents: write
     steps:
       - name: Repoyu Klonla
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Tüm geçmişi çek ki çakışma olmasın
+          fetch-depth: 0
 
       - name: Ortami Kur
         uses: actions/setup-python@v4
@@ -23,12 +23,10 @@ jobs:
 
       - name: Ajan Calisiyor
         run: |
-          # Ajan verileri optimize eder
           python scripts/antigravity_agent.py
 
       - name: Testleri Kos
         run: |
-          # Hata varsa burada durur ve kaydetmez
           python -m unittest discover tests/
 
       - name: Kaydet ve Gonder
@@ -36,11 +34,18 @@ jobs:
           git config --global user.name "AntigravityBot"
           git config --global user.email "bot@caglardinc.com"
           
-          # Çakışmaları önlemek için önce güncel hali çekiyoruz
-          git pull --rebase origin main
+          # 1. Uzak sunucudaki (senin telefondan yaptığın) değişiklikleri çek
+          git fetch origin main
+          
+          # 2. Kendi değişikliklerini senin yaptıklarının üzerine 'rebase' et
+          git rebase origin/main
           
           git add .
-          # Sadece değişiklik varsa commit at, yoksa hata verme
-          git diff-index --quiet HEAD || git commit -m "Otonom: Tum pokemonlar optimize edildi."
           
-          git push origin main
+          # 3. Sadece bir değişiklik varsa commit at
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Otonom: Tum pokemonlar optimize edildi."
+            git push origin main
+          else
+            echo "Degisiklik yok, push edilmiyor."
+          fi
