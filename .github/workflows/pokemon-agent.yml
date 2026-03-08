@@ -32,3 +32,4 @@ jobs:
           git add .
           git commit -m "Otonom: Sistem optimize edildi." || echo "Degisiklik yok."
           git push
+ 
