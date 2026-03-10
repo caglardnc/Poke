@@ -1,0 +1,3 @@
+## 2024-05-24 - [Avoid list comprehensions for purely in-place dictionary mutation]
+**Learning:** When updating large lists of dictionaries in-place, a standard `for` loop with a `try/except` or `dict.get()` approach is actually faster than using list comprehensions with `dict.update()`. The function overhead and dictionary creation for `.update()` within the comprehension creates a bottleneck compared to direct key assignment in a loop.
+**Action:** Use standard `for` loops for in-place modifications on massive lists of dictionaries rather than attempting "pythonic" list comprehensions that rely on side effects.
