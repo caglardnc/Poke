@@ -1,5 +1,14 @@
 [
-    {"name": "Bulbasaur", "rarity_score": 5},
-    {"name": "Charmander", "rarity_score": 7},
-    {"name": "Squirtle", "rarity_score": 6}
+    {
+        "name": "Bulbasaur",
+        "rarity_score": 5.25
+    },
+    {
+        "name": "Charmander",
+        "rarity_score": 7.35
+    },
+    {
+        "name": "Squirtle",
+        "rarity_score": 6.3
+    }
 ]
