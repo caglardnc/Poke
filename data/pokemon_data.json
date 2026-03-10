@@ -1,14 +1,14 @@
 [
     {
         "name": "Bulbasaur",
-        "rarity_score": 5.25
+        "rarity_score": 5.51
     },
     {
         "name": "Charmander",
-        "rarity_score": 7.35
+        "rarity_score": 7.72
     },
     {
         "name": "Squirtle",
-        "rarity_score": 6.3
+        "rarity_score": 6.62
     }
 ]
