@@ -33,4 +33,4 @@ jobs:
           git config --global user.email "bot@caglardinc.com"
           git add .
           git commit -m "Antigravity: Sistem temizlendi ve optimize edildi." || exit 0
-          git push origin main --force
+          git push origin main
