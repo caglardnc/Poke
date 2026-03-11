@@ -1,14 +1,1 @@
-[
-    {
-        "name": "Bulbasaur",
-        "rarity_score": 6.08
-    },
-    {
-        "name": "Charmander",
-        "rarity_score": 8.52
-    },
-    {
-        "name": "Squirtle",
-        "rarity_score": 7.3
-    }
-]
+[{"pokemon_name":"Larvesta","rarity_score":0,"cp":776,"is_shiny":false,"timestamp":"2026-03-11T13:39:33.193196Z"}]
