@@ -1,6 +1,7 @@
 import json
 import os
 
+
 def optimize_rarity(pokemon_data):
     # ⚡ Bolt: Batch process list to avoid function overhead per item
     # ⚡ Bolt: Use try/except to reduce dictionary lookups from 2 (in, get) to 1
@@ -17,6 +18,7 @@ def optimize_rarity(pokemon_data):
 
     return pokemon_data[0] if is_single else pokemon_data
 
+
 def main():
     data_file = "data/pokemon_data.json"
 
@@ -31,13 +33,14 @@ def main():
             print(f"Error: Failed to decode JSON from {data_file}.")
             return
 
-    # Apply optimization to each pokemon (Bolt'un batch mantığıyla tek seferde yolluyoruz)
+    # Apply optimization to each pokemon (Bolt's batch logic)
     updated_data = optimize_rarity(data)
 
     with open(data_file, 'w', encoding='utf-8') as f:
         json.dump(updated_data, f, indent=4, ensure_ascii=False)
 
     print("Optimization complete. Data saved to data/pokemon_data.json")
+
 
 if __name__ == "__main__":
     main()
