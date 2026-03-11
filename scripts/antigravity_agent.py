@@ -1,5 +1,6 @@
 import json
-import os
+
+from scripts.constants import POKEMON_DATA_FILE
 
 def optimize_rarity(pokemon_data):
     # ⚡ Bolt: Batch process list to avoid function overhead per item
@@ -18,26 +19,24 @@ def optimize_rarity(pokemon_data):
     return pokemon_data[0] if is_single else pokemon_data
 
 def main():
-    data_file = "data/pokemon_data.json"
-
-    if not os.path.exists(data_file):
-        print(f"Error: {data_file} not found.")
+    try:
+        with open(POKEMON_DATA_FILE, 'r', encoding='utf-8') as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                print(f"Error: Failed to decode JSON from {POKEMON_DATA_FILE}.")
+                return
+    except FileNotFoundError:
+        print(f"Error: {POKEMON_DATA_FILE} not found.")
         return
-
-    with open(data_file, 'r', encoding='utf-8') as f:
-        try:
-            data = json.load(f)
-        except json.JSONDecodeError:
-            print(f"Error: Failed to decode JSON from {data_file}.")
-            return
 
     # Apply optimization to each pokemon (Bolt'un batch mantığıyla tek seferde yolluyoruz)
     updated_data = optimize_rarity(data)
 
-    with open(data_file, 'w', encoding='utf-8') as f:
+    with open(POKEMON_DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(updated_data, f, indent=4, ensure_ascii=False)
 
-    print("Optimization complete. Data saved to data/pokemon_data.json")
+    print(f"Optimization complete. Data saved to {POKEMON_DATA_FILE}")
 
 if __name__ == "__main__":
     main()
